@@ -14,9 +14,9 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        container('maven') {
-          git 'https://github.com/ijzerbroot/simple-java-maven-app'
-        }
+    //    container('maven') {
+    //      git 'https://github.com/ijzerbroot/simple-java-maven-app'
+    //    }
         container('maven') {
           sh 'mvn -B clean install'
         }
