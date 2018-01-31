@@ -38,7 +38,7 @@ podTemplate(cloud: 'kubernetes', label: 'maven', containers: [
           // deploy on kubernetes
     //      ...
     //  }
-    }
+    //}
 
   }
 }
