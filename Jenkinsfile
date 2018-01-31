@@ -8,39 +8,15 @@ podTemplate(label: 'maven', containers: [
   //]
            ) {
 
-  node('maven') {
-
-    container('maven') {
-      configFileProvider(
-      [configFile(fileId: '<some-id>', variable: 'MAVEN_SETTINGS')]) {
-
-        withMaven() {
-            stage('Checkout') {
-              checkout scm
+      node('maven') {
+        stage('Get a Maven project') {
+            git 'https://github.com/jenkinsci/kubernetes-plugin.git'
+            container('maven') {
+                stage('Build a Maven project') {
+                    sh 'mvn -B clean install'
+                }
             }
-
-            stage('Build') {
-              if (env.BRANCH_NAME == 'development') {
-                sh "mvn -s '${MAVEN_SETTINGS}' clean deploy"
-              } else {
-                sh "mvn -B clean install"
-              }
-            }
-
-    //        stage('SonarQube') {
-    //         sh "mvn -s '${MAVEN_SETTINGS}' sonar:sonar"
-    //       }
         }
-      }
-    }
-
-   // container('kubectl') {
-
-    //  stage('Deployment') {
-          // deploy on kubernetes
-    //      ...
-    //  }
-    //}
 
   }
 }
