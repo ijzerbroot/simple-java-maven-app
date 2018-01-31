@@ -12,11 +12,11 @@ pipeline {
     }
   }
   stages {
-   stage('Get the code') {
-    git 'https://github.com/ijzerbroot/simple-java-maven-app'
-   }
-    stage('Run maven') {
+    stage('Build') {
       steps {
+        container('maven') {
+          git 'https://github.com/ijzerbroot/simple-java-maven-app'
+        }
         container('maven') {
           sh 'mvn -B clean install'
         }
