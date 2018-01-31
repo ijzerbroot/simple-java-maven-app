@@ -1,10 +1,12 @@
-podTemplate(cloud: 'kubernetes', label: 'maven', containers: [
+podTemplate(label: 'maven', containers: [
  containerTemplate(name: 'maven', image: 'maven:3.3.9-jdk-8-alpine', ttyEnabled: true, command: 'cat')
- ],
-  volumes: [
-    hostPathVolume(mountPath: '/path/docker.sock', hostPath: '/path/docker.sock')
+ ]
+            //,
+  //volumes: [
+  //  hostPathVolume(mountPath: '/path/docker.sock', hostPath: '/path/docker.sock')
     // ,persistentVolumeClaim(mountPath: '/path/repository/', claimName: 'jenkins-maven-claim', readOnly: false)
-  ]) {
+  //]
+           ) {
 
   node('maven') {
 
@@ -21,7 +23,7 @@ podTemplate(cloud: 'kubernetes', label: 'maven', containers: [
               if (env.BRANCH_NAME == 'development') {
                 sh "mvn -s '${MAVEN_SETTINGS}' clean deploy"
               } else {
-                sh "mvn -s '${MAVEN_SETTINGS}' clean verify"
+                sh "mvn -B clean install"
               }
             }
 
