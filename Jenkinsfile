@@ -10,7 +10,7 @@ podTemplate(label: 'maven', containers: [
 
       node('maven') {
         stage('Get a Maven project') {
-      //      git 'https://github.com/jenkinsci/kubernetes-plugin.git'
+            git 'https://github.com/ijzerbroot/simple-java-maven-app'
             container('maven') {
                 stage('Build a Maven project') {
                     sh 'mvn -B clean install'
