@@ -14,12 +14,15 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-    //    container('maven') {
-    //      git 'https://github.com/ijzerbroot/simple-java-maven-app'
-    //    }
+        container('maven') {
+          git 'https://github.com/ijzerbroot/simple-java-maven-app'
+        }
         container('maven') {
           sh 'mvn -B clean install'
         }
+        mail (to: 'frank.hoeben@sapienzaconsulting.com',
+        subject: "Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) has completed the build step",
+        body: "Please go to ${env.BUILD_URL}.");
       }
     }
     stage('build & SonarQube Scan') {
