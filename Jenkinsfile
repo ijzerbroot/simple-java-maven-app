@@ -8,6 +8,7 @@ pipeline {
         image 'maven:3.3.9-jdk-8-alpine'
         ttyEnabled true
         command 'cat'
+        volumes '/var/lib/kubedata/jenkins-slave:/home/jenkins/workspace'
       }
     }
   }
