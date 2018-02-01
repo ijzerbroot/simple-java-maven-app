@@ -20,14 +20,14 @@ pipeline {
         container('maven') {
           sh 'mvn -B clean install'
         }
+      }
+    }
     stage('build & SonarQube Scan') {
       withSonarQubeEnv('Sapienza Sonar') {
         container('maven') {
         sh 'mvn clean package sonar:sonar'
         }
       } // SonarQube taskId is automatically attached to the pipeline context
-    }
-      }
     }
   }
 }
